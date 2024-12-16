@@ -1,21 +1,10 @@
-def call(){
-{
-        sh 'go mod tidy'
-    }
-{
-        sh '''
-                export PATH=$(go env GOPATH)/bin:$PATH
-                golangci-lint run ./... || true
-                '''
-    }
- {
-        withSonarQubeEnv('SonarQube') {
+def call() {
+         withSonarQubeEnv('SonarQube') {
                     sh """
-                        ${SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=$SONARQUBE_PROJECT_KEY \
+                        /usr/bin/sonar-scanner \
+                        -Dsonar.projectKey=employee-api \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=${env.SONAR_HOST_URL}
+                        -Dsonar.host.url=http://65.2.175.160:9000/
                     """
                 }
-    }
 }
