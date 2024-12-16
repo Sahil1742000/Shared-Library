@@ -1,10 +1,11 @@
 def call() {
-        withSonarQubeEnv('SonarQube') {
-                    sh """
-                        ${SCANNER_HOME}/bin/sonar-scanner \
-                        -Dsonar.projectKey=$SONARQUBE_PROJECT_KEY \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=${env.SONAR_HOST_URL}
-                    """
+    withSonarQubeEnv('SonarQube') {
+        def scannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+        sh """
+            ${scannerHome}/bin/sonar-scanner \
+            -Dsonar.projectKey=employee-api \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://65.2.175.160:9000
+        """
     }
 }
