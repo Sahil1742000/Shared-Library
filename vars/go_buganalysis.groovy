@@ -7,3 +7,4 @@ def call() {
                         -Dsonar.host.url=${env.SONAR_HOST_URL}
                     """
     }
+}
